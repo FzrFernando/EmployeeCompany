@@ -40,4 +40,23 @@ public class DbRepository {
 		}
 		return resultList;
 	}
+	
+	public static <E> E addCharacter(Class<E> c, Object o) throws Exception{
+		Transaction transaction = null;
+		Session session = null;
+		E result = null;
+		try {
+			session = DbUtility.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+		} catch (Exception e) {
+			throw new Exception("Error en la base de datos");
+		} try {
+			result = (E) session.merge(o);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+		}
+		session.close();
+		return (E) result;
+	}
 }
