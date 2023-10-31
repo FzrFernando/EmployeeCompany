@@ -41,7 +41,7 @@ public class DbRepository {
 		return resultList;
 	}
 	
-	public static <E> E addCharacter(Class<E> c, Object o) throws Exception{
+	public static <E> E add(Class<E> c, Object o) throws Exception{
 		Transaction transaction = null;
 		Session session = null;
 		E result = null;
