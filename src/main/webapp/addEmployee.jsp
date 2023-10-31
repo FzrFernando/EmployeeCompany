@@ -25,7 +25,7 @@ if(request.getParameter("add")!=null){
 	Company c = DbRepository.find(Company.class, idCompany);
 	Employee e = new Employee(firstName,lastName,email,gender,date,c);
 	
-	DbRepository.addCharacter(Employee.class, e);
+	DbRepository.add(Employee.class, e);
 
 			%>
 <%
@@ -38,36 +38,24 @@ if(request.getParameter("add")!=null){
 	}
 	%>
 	<form method="post">
-			<p>
 				<label>Name</label>
 				<input name="firstName" type="text">
-			</p>
 			
-			
-			<p>
 				<label>Last Name</label>
 				<input name="lastName" type="text">
-			</p>
-			
-			<p>
+
 				<label>Email</label>
 				<input name="email" type="email">
-			</p>
-			
-			<p>
+
 			<label>Sex</label>
 			<select name="gender">
 				<option value="Male">Male</option>
 				<option value="Female">Female</option>
 			</select>
-			</p>
-			
-			<p>
+
 				<label>Date Of Birth</label>
 				<input name="date" type="date">
-			</p>
-			
-			<p>
+
 			<label>Company</label>
 			<select name="company">
 			<%
@@ -78,7 +66,6 @@ if(request.getParameter("add")!=null){
 				}
 			%>
 			</select>
-			</p>
 			
 			<button name="add" type="submit">Add</button>
 		</form>
