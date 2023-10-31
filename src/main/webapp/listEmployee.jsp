@@ -31,7 +31,7 @@
 				<th scope="col">Género</th>
 				<th scope="col">Fecha de Nacimiento</th>
 				<th scope="col">Nombre Compañía</th>
-				<th></th>
+				<th>Edit</th>
 				<th></th>																				
 			</tr>
 		</thead>
@@ -47,7 +47,16 @@
 				<td><%=e.getGender()%></td>
 				<td><%=e.getDateOfBirth()%></td>
 				<td><%=e.getCompany().getName()%></td>
-				<td></td>
+				<td>
+					<form action="editEmployee.jsp">
+						<input id="id" name="id" type="text" value='<%=e.getId()%>' hidden>
+						<div class="form-group row">
+	      					<div class="offset-4 col-8">
+	      						<button name="submit" type="submit" class="btn btn-primary">Editar</button>
+	      					</div>
+	      				</div>
+					</form>
+				</td>
 				<td></td>
 			</tr>
 			<% 
