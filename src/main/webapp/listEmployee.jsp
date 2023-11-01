@@ -57,7 +57,16 @@
 	      				</div>
 					</form>
 				</td>
-				<td></td>
+				<td>
+					<form action="deleteEmployee.jsp">
+						<input id="id" name="id" type="text" value='<%=e.getId()%>' hidden>
+						<div class="form-group row">
+	      					<div class="offset-4 col-8">
+	      						<button name="submit" type="submit" class="btn btn-primary">Eliminar</button>
+	      					</div>
+	      				</div>
+					</form>
+				</td>
 			</tr>
 			<% 
 			}

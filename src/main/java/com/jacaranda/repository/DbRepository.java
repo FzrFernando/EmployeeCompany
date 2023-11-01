@@ -50,13 +50,34 @@ public class DbRepository {
 			transaction = session.beginTransaction();
 		} catch (Exception e) {
 			throw new Exception("Error en la base de datos");
-		} try {
+		} 
+		try {
 			result = (E) session.merge(o);
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
 		}
 		session.close();
-		return (E) result;
+		return result;
+	}
+	
+	public static <E> E delete(Class <E>c, Object o) throws Exception{
+		Transaction transaction = null;
+		Session session = null;
+		E result = null;
+		try {
+			session = DbUtility.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+		} catch (Exception e) {
+			throw new Exception("Error en la base de datos");
+		} 
+		try {
+			session.remove(o);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+		}
+		session.close();
+		return result;
 	}
 }
