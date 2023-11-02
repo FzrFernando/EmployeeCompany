@@ -10,6 +10,10 @@
 </head>
 <body>
 <%
+if(session.getAttribute("login")==null){
+	response.sendRedirect("error.jsp?msg=Tienes que iniciar sesión");
+	return;
+}
 	if(request.getParameter("del")!=null){
 		
 		int idEmployee=0;

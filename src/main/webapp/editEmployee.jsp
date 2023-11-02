@@ -15,6 +15,10 @@
 </head>
 <body>
 <%
+if(session.getAttribute("login")==null){
+	response.sendRedirect("error.jsp?msg=Tienes que iniciar sesión");
+	return;
+}
 if (request.getParameter("edit")!= null) {
 	String firstName = request.getParameter("firstName");
 	String lastName = request.getParameter("lastName");

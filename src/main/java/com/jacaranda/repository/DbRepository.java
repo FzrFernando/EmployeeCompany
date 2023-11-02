@@ -25,6 +25,22 @@ public class DbRepository {
 		return result;
 	}
 	
+	public static <E> E findString(Class<E> c, String id) throws Exception {
+		Session session = null;
+		E result = null;
+		try {
+			session = DbUtility.getSessionFactory().openSession();
+		} catch (Exception e) {
+			throw new Exception("Error en la base de datos");
+		}
+		try {
+			result = session.find(c,id);
+		} catch (Exception e) {
+			throw new Exception("Error al obtener la entidad");
+		}
+		return result;
+	}
+	
 	public static <E> List<E> findAll(Class<E> c) throws Exception {
 		Session session = null;
 		List<E> resultList = null;
