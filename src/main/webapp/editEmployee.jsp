@@ -22,9 +22,10 @@ if (request.getParameter("edit")!= null) {
 	String gender = request.getParameter("gender");
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	Date date = formatter.parse(request.getParameter("date"));
+	int id = Integer.parseInt(request.getParameter("id"));
 	int idCompany = Integer.parseInt(request.getParameter("company"));
 	Company c = DbRepository.find(Company.class, idCompany);
-	Employee e = new Employee(firstName,lastName,email,gender,date,c);
+	Employee e = new Employee(id,firstName,lastName,email,gender,date,c);
 	
 	DbRepository.add(Employee.class, e);
 }
@@ -39,37 +40,51 @@ try{
 	Employee e = DbRepository.find(Employee.class, id);
 	%>
 	<form method="post">
+				<input name="id" type="text" value="<%=e.getId()%>" hidden="hidden">
+				
 				<label>Name</label>
-				<input name="firstName" type="text">
+				<input name="firstName" type="text" value="<%=e.getFirstName() %>">
 			
 				<label>Last Name</label>
-				<input name="lastName" type="text">
+				<input name="lastName" type="text" value="<%=e.getLastName()%>">
 
 				<label>Email</label>
-				<input name="email" type="email">
+				<input name="email" type="email" value="<%=e.getEmail()%>">
 
 			<label>Sex</label>
 			<select name="gender">
-				<option value="Male">Male</option>
-				<option value="Female">Female</option>
+				<option value="Male">Hombre</option>
+				<option value="Female">Mujer</option>
 			</select>
-
+			
 				<label>Date Of Birth</label>
-				<input name="date" type="date">
+				<input name="date" type="date" value="<%=e.getDateOfBirth()%>">
 
 			<label>Company</label>
 			<select name="company">
 			<%
 				for(Company c : company){
+					
+ 					if (c.getName().equals(e.getCompany().getName())){ 
 			%>
-			<option value="<%=c.getId()%>"><%=c.getName()%></option>
+			<option selected="<%=e.getCompany().getName() %>"><%=c.getName()%></option>
 			<%
+ 					}  else {
+ 			%>
+ 			<option><%=c.getName() %></option>
+ 			<% 
+
+ 					}
+				
 				}
 			%>
 			</select>
 			
-			<button name="edit" type="submit">Edit</button>
+			<button class="btn btn-primary" name="edit" type="submit">Edit</button>
 		</form>
+		<a href="listEmployee.jsp">
+		<button class="btn btn-primary">Back To List</button>
+	</a>
 	<%
 	} catch (Exception e){
 		response.sendRedirect("error.jsp?msg="+e.getMessage());

@@ -1,6 +1,6 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.util.Date"%>
+<%@page import="java.sql.Date"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.model.Employee"%>
 <%@page import="com.jacaranda.model.Company"%>
@@ -11,6 +11,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Add Employee</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
 </head>
 <body>
 <%
@@ -19,8 +21,7 @@ if(request.getParameter("add")!=null){
 	String lastName = request.getParameter("lastName");
 	String email = request.getParameter("email");
 	String gender = request.getParameter("gender");
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	Date date = formatter.parse(request.getParameter("date"));
+	Date date = Date.valueOf(request.getParameter("date"));
 	int idCompany = Integer.parseInt(request.getParameter("company"));
 	Company c = DbRepository.find(Company.class, idCompany);
 	Employee e = new Employee(firstName,lastName,email,gender,date,c);
@@ -50,7 +51,7 @@ if(request.getParameter("add")!=null){
 				<option value="Male">Male</option>
 				<option value="Female">Female</option>
 			</select>
-
+				
 				<label>Date Of Birth</label>
 				<input name="date" type="date">
 
