@@ -1,4 +1,4 @@
-<%@page import="com.jacaranda.model.Users"%>
+<%@page import="com.jacaranda.model.Employee"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -13,30 +13,29 @@
 
 	<%
 		if (request.getParameter("submit")!= null){
-			String username = null, password = null;
-			try{
-				// Guardamos en variables el nombre y contraseña del usuario
-				username = request.getParameter("username");
+			int id = 0;
+			String password = null;
+			try {
+				id = Integer.parseInt(request.getParameter("id"));
 				password = request.getParameter("password");
 				
-				Users u = DbRepository.findString(Users.class, username);
-				if (u.getPassword().equals(password)){
-					session.setAttribute("login", u);
+				Employee e = DbRepository.find(Employee.class, id);
+				if (e.getPassword().equals(password)){
+					session.setAttribute("login", e);
 					response.sendRedirect("listCompany.jsp");
 				} else {
 					response.sendRedirect("login.jsp");
 				}
 			} catch (Exception e) {
-				response.sendRedirect("error.jsp?msg=El usuario o contraseña están mal");
-				return;
+				response.sendRedirect("error.jsp?msg=Se han introducido mal los datos");
 			}
 		}
 	%>
 <form>
   <!-- Email input -->
   <div class="form-outline mb-4">
-    <input type="email" id="form2Example1" name="username" class="form-control" />
-    <label class="form-label" for="form2Example1">Username</label>
+    <input type="email" id="form2Example1" name="id" class="form-control" />
+    <label class="form-label" for="form2Example1">Id</label>
   </div>
 
   <!-- Password input -->

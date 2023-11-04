@@ -19,6 +19,9 @@ public class Project {
 	@OneToMany(mappedBy="project")
 	private List<CompanyProject> companyProject;
 	
+	@OneToMany(mappedBy="project")
+	private List<EmployeeProject> employeeProject;
+	
 	public int getId() {
 		return id;
 	}
