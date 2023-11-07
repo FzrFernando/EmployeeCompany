@@ -26,6 +26,12 @@
 		
 	}
 	%>
+	<a href="timeJob.jsp">
+		<button>
+			Asignar Trabajo
+		</button>
+	</a>
+	
 	<table class="table">
 			<%
 			for (Company c : result) {
