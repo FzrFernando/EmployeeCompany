@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.jacaranda.model.CompanyProject;
 import com.jacaranda.utility.DbUtility;
 
 public class DbRepository {
@@ -94,6 +95,47 @@ public class DbRepository {
 			transaction.rollback();
 		}
 		session.close();
+		return result;
+	}
+	
+	public static void add(CompanyProject c) throws Exception {
+		Transaction transaction = null;
+		
+		Session session = null;
+		try {
+			session = DbUtility.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+		} catch (Exception e) {
+			throw new Exception("Error en la base de datos");
+		}
+		try {
+			if(DbRepository.find(c)==null) {
+				session.persist(c);
+			}else {
+				 session.merge(c);//persist para companyProject
+			}
+			
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+		}
+		session.close();
+	}
+	
+	public static CompanyProject find(CompanyProject cp) throws Exception {
+		Session session = null;
+		CompanyProject result = null;
+		try {
+			session = DbUtility.getSessionFactory().openSession();
+			
+		} catch (Exception e) {
+			throw new Exception("Error en la base de datos");
+		}
+		try {
+			result =  session.find(CompanyProject.class, cp);
+		} catch (Exception e) {
+			throw new Exception("Error al obtener la entidad");
+		}
 		return result;
 	}
 }
