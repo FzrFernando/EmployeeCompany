@@ -7,6 +7,17 @@
 <title>Time Job</title>
 </head>
 <body>
-
+<% 
+	if(session.getAttribute("login")==null){
+		response.sendRedirect("error.jsp?msg=Tienes que iniciar sesión");
+		return;
+	}
+%>
+	<form>
+		
+		
+		
+		<button type="submit">Asignar Trabajo</button>
+	</form>
 </body>
 </html>

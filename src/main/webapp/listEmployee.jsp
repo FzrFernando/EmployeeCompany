@@ -28,12 +28,6 @@
 	}
 	%>
 	
-	<a>
-		<button>
-			Asignar Trabajo
-		</button>
-	</a>
-	
 	<table class="table">
 		<thead>
 			<tr>
