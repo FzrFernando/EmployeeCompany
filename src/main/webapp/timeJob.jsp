@@ -18,6 +18,7 @@
 	}
 
 	Employee emp = (Employee) session.getAttribute("login");
+	
 %>
 	<h1>Proyectos</h1>
 	<table>
@@ -37,9 +38,15 @@
 			<tr>
 				<form>
 				<td><%=cp.getProject().getName()%></td>
+				<%if(cp.getProject().getId()<=0){ %>
 				<td>
 					<button value="<%=cp.getProject().getId()%>" name="comienzo" type="submit">Comenzar a trabajar</button>
 				</td>
+				<%}else{ %>
+				<td>
+					<button value="<%=cp.getProject().getId()%>" name="final" type="submit">Terminar de trabajar</button>
+				</td>
+				<%} %>
 				</form>
 			</tr>
 			<%
