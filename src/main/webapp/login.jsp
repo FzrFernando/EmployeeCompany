@@ -22,6 +22,7 @@
 				Employee e = DbRepository.find(Employee.class, id);
 				if (e.getPassword().equals(password)){
 					session.setAttribute("login", e);
+					session.setAttribute("idUser",e.getId());
 					response.sendRedirect("listCompany.jsp");
 				} else {
 					response.sendRedirect("login.jsp");

@@ -34,9 +34,7 @@
 			<tr>
 				<th scope="col">Nombre</th>
 				<th scope="col">Número Empleados</th>
-				<th scope="col">Número Proyectos</th>
-				<th></th>
-				<th></th>																				
+				<th scope="col">Número Proyectos</th>																			
 			</tr>
 		</thead>
 		<tbody>
@@ -44,8 +42,6 @@
 				<td><%=c.getName()%></td>
 				<td><%=c.getEmployee().size()%></td>
 				<td><%=c.getCompanyProject().size()%></td>
-				<td></td>
-				<td></td>
 			</tr>
 			<tr>
 				<th scope="col">Empleados</th>

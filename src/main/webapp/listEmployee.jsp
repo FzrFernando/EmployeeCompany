@@ -1,4 +1,3 @@
-<%@page import="com.jacaranda.model.Users"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@page import="com.jacaranda.model.Employee"%>
 <%@page import="java.util.ArrayList"%>
@@ -17,7 +16,9 @@
 		response.sendRedirect("error.jsp?msg=Tienes que iniciar sesion ");
 		return;
 	}
-	Users u = DbRepository.findString(Users.class,(String)session.getAttribute("login"));
+	
+	Employee emp = DbRepository.find(Employee.class, (Integer)session.getAttribute("idUser"));
+	
 	ArrayList<Employee> result = null;
 	
 	try{
@@ -38,7 +39,7 @@
 				<th scope="col">Fecha de Nacimiento</th>
 				<th scope="col">Nombre Compañía</th>
 				<%
-				if(u.getRole().equals("ADMIN")){
+				if(emp.getRole().equals("ADMIN")){
 				%>
 				<th>Edit</th>
 				<th>Delete</th>	
@@ -60,7 +61,7 @@
 				<td><%=e.getDateOfBirth()%></td>
 				<td><%=e.getCompany().getName()%></td>
 				<%
-				if(u.getRole().equals("ADMIN")){
+				if(emp.getRole().equals("ADMIN")){
 				%>
 				<td>
 					<form action="editEmployee.jsp">
