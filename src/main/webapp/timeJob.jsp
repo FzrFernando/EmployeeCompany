@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.jacaranda.model.EmployeeProject"%>
 <%@page import="com.jacaranda.model.CompanyProject"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
@@ -18,48 +20,27 @@
 	}
 
 	Employee emp = (Employee) session.getAttribute("login");
+	ArrayList <CompanyProject> listProject = new ArrayList<CompanyProject> ();
 	
-	
-	if (request.getParameter("comienzo") != null){
-		
-	}
-	
-	
+	listProject = (ArrayList<CompanyProject>) DbRepository.findAll(CompanyProject.class);
 %>
-	<h1>Proyectos</h1>
-	<table>
-		<thead>
-			<tr>
 
-				<th scope="col">Nombre projecto</th>
-				<th scope="col">Estado</th>
-			</tr>
-		</thead>
-		<tbody>
-		<%
-			for (CompanyProject cp : emp.getCompany().getCompanyProject()) {
-				Date fechaActual = new Date();
-				if (cp.getEnd().after(fechaActual)) {
+<form>
+	<select>
+	<%for (CompanyProject cp : listProject) {
+		if(cp.getCompany().getId() == emp.getCompany().getId()){
 			%>
-			<tr>
-				<form>
-				<td><%=cp.getProject().getName()%></td>
-					<%if(cp.getProject().getId()<=0){ %>
-				<td>
-					<button value="<%=cp.getProject().getId()%>" name="comienzo" type="submit">Comenzar a trabajar</button>
-				</td>
-					<%}else{ %>
-				<td>
-					<button value="<%=cp.getProject().getId()%>" name="final" type="submit">Terminar de trabajar</button>
-				</td>
-					<%} %>
-				</form>
-			</tr>
+			<option value="<%=cp.getProject().getId()%>"><%=cp.getProject().getName()%></option>
 			<%
-				}
-			}
-			%>
-		</tbody>
-	</table>
+		}
+		%>
+		<% 
+	}
+	%>
+	</select>
+	<label>Tiempo trabajado</label>
+	<input type="text" name="time" id="time" readonly="readonly">
+</form>
+
 </body>
 </html>
