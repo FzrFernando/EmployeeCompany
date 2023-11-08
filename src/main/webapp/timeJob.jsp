@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalTime"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.jacaranda.model.EmployeeProject"%>
 <%@page import="com.jacaranda.model.CompanyProject"%>
@@ -23,10 +24,21 @@
 	ArrayList <CompanyProject> listProject = new ArrayList<CompanyProject> ();
 	
 	listProject = (ArrayList<CompanyProject>) DbRepository.findAll(CompanyProject.class);
+	
+	LocalTime start = (LocalTime) session.getAttribute("comienzo");
+	if (request.getParameter("button") != null) {
+		if (start == null) {
+			session.setAttribute("comienzo", LocalTime.now());
+		} else {
+			LocalTime stop = LocalTime.now();
+			int minutes = (int) java.time.Duration.between(start, stop).toMinutes();
+			session.removeAttribute("comienzo"); // Así quito el tiempo que estaba antes
+		}
+	}
 %>
 
 <form>
-	<select>
+	<select name="projectSelect">
 	<%for (CompanyProject cp : listProject) {
 		if(cp.getCompany().getId() == emp.getCompany().getId()){
 			%>
@@ -38,8 +50,17 @@
 	}
 	%>
 	</select>
-	<label>Tiempo trabajado</label>
-	<input type="text" name="time" id="time" readonly="readonly">
+	<% 
+	if (start == null) {
+		%>
+		<button type="submit" name="button" value="start">Empezar</button>
+		<%
+	} else {
+		%>
+		<button type="submit" name="button" value="stop">Parar</button>
+		<%
+	}
+	%>
 </form>
 
 </body>
