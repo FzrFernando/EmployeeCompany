@@ -19,6 +19,12 @@
 
 	Employee emp = (Employee) session.getAttribute("login");
 	
+	
+	if (request.getParameter("comienzo") != null){
+		
+	}
+	
+	
 %>
 	<h1>Proyectos</h1>
 	<table>
@@ -33,24 +39,24 @@
 		<%
 			for (CompanyProject cp : emp.getCompany().getCompanyProject()) {
 				Date fechaActual = new Date();
-				if (cp.getEnd().after(fechaActual)) {//Es after pero para no tener que cambiar la bbdd
+				if (cp.getEnd().after(fechaActual)) {
 			%>
 			<tr>
 				<form>
 				<td><%=cp.getProject().getName()%></td>
-				<%if(cp.getProject().getId()<=0){ %>
+					<%if(cp.getProject().getId()<=0){ %>
 				<td>
 					<button value="<%=cp.getProject().getId()%>" name="comienzo" type="submit">Comenzar a trabajar</button>
 				</td>
-				<%}else{ %>
+					<%}else{ %>
 				<td>
 					<button value="<%=cp.getProject().getId()%>" name="final" type="submit">Terminar de trabajar</button>
 				</td>
-				<%} %>
+					<%} %>
 				</form>
 			</tr>
 			<%
-			}
+				}
 			}
 			%>
 		</tbody>
