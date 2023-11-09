@@ -23,6 +23,22 @@ public class EmployeeProject {
 	private Project project;
 	
 	private int minutes;
+	
+	public EmployeeProject(Employee employee, Project project, int minutes) {
+		super();
+		this.employee = employee;
+		this.project = project;
+		this.minutes = minutes;
+	}
+	
+	
+
+	public EmployeeProject() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public Employee getEmployee() {
 		return employee;

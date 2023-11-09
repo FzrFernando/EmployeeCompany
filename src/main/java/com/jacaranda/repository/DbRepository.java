@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.jacaranda.model.CompanyProject;
+import com.jacaranda.model.EmployeeProject;
 import com.jacaranda.utility.DbUtility;
 
 public class DbRepository {
@@ -137,5 +138,24 @@ public class DbRepository {
 			throw new Exception("Error al obtener la entidad");
 		}
 		return result;
+	}
+	
+	public static void add(EmployeeProject c) throws Exception {
+		Transaction transaction = null;
+		
+		Session session = null;
+		try {
+			session = DbUtility.getSessionFactory().openSession();
+			transaction = session.beginTransaction();
+		} catch (Exception e) {
+			throw new Exception("Error en la base de datos");
+		}
+		try {
+				session.persist(c);	
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+		}
+		session.close();
 	}
 }

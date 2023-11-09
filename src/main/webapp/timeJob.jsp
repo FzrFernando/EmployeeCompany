@@ -1,3 +1,5 @@
+<%@page import="com.jacaranda.model.Project"%>
+<%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalTime"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.jacaranda.model.EmployeeProject"%>
@@ -26,14 +28,19 @@
 	listProject = (ArrayList<CompanyProject>) DbRepository.findAll(CompanyProject.class);
 	
 	LocalTime start = (LocalTime) session.getAttribute("comienzo");
-	if (request.getParameter("button") != null) {
-		if (start == null) {
+	if (request.getParameter("go") != null) {
 			session.setAttribute("comienzo", LocalTime.now());
-		} else {
-			LocalTime stop = LocalTime.now();
-			int minutes = (int) java.time.Duration.between(start, stop).toMinutes();
-			session.removeAttribute("comienzo"); // Así quito el tiempo que estaba antes
-		}
+			session.setAttribute("projectWork",request.getParameter("projectSelect"));
+	} else if (request.getParameter("finish") != null) {
+		LocalTime stop = LocalTime.now();
+		int minutes = (int) ChronoUnit.SECONDS.between(start, stop);
+		
+		Project p = DbRepository.find(Project.class, Integer.parseInt(session.getAttribute("projectWork").toString()));
+		
+		session.removeAttribute("comienzo"); // Así quito el tiempo que estaba antes
+		EmployeeProject ep = new EmployeeProject(emp, p, minutes);
+		DbRepository.add(ep);
+		start = null;
 	}
 %>
 
@@ -51,13 +58,13 @@
 	%>
 	</select>
 	<% 
-	if (start == null) {
+	if (request.getParameter("go") == null) {
 		%>
-		<button type="submit" name="button" value="start">Empezar</button>
+		<button type="submit" name="go" value="start">Empezar</button>
 		<%
 	} else {
 		%>
-		<button type="submit" name="button" value="stop">Parar</button>
+		<button type="submit" name="finish" value="stop">Parar</button>
 		<%
 	}
 	%>
