@@ -14,38 +14,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Time Job</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
 <% 
+	// Si el atributo login (Tiene recogido el usuario que se ha logueado) es nulo, me reenviará a una página de error 
 	if(session.getAttribute("login")==null){
 		response.sendRedirect("error.jsp?msg=Tienes que iniciar sesión");
 		return;
 	}
 
+	// Creamos un Employee que va a tener el valor del usuario que se ha logueado
 	Employee emp = (Employee) session.getAttribute("login");
+	// Creamos un ArrayList de CompanyProject
 	ArrayList <CompanyProject> listProject = new ArrayList<CompanyProject> ();
 	
+	// Le asignamos al ArrayList de CompanyProject todos los proyectos de una compañía
 	listProject = (ArrayList<CompanyProject>) DbRepository.findAll(CompanyProject.class);
 	
+	// Creo una variable LocalTime que será la que contendrá el tiempo de inicio de trabajo y tendrá el valor de la session 
 	LocalTime start = (LocalTime) session.getAttribute("comienzo");
+	
+	// Este condicional se ejecutará si alguien ha pulsado en el botón de comenzar
 	if (request.getParameter("go") != null) {
-			session.setAttribute("comienzo", LocalTime.now());
-			session.setAttribute("projectWork",request.getParameter("projectSelect"));
+		// A la session le doy un atributo para el comienzo del tiempo con el tiempo actual en ese momento
+		session.setAttribute("comienzo", LocalTime.now());
+		// A la session le doy un atributo que será el proyecto que he seleccionado
+		session.setAttribute("projectWork",request.getParameter("projectSelect"));
+	// Este condicional se ejecutará si alguien ha pulsado en el botón de parar
 	} else if (request.getParameter("finish") != null) {
+		// Creo una variable LocalTime que será inicializada con el tiempo en el que se pulse el botón
 		LocalTime stop = LocalTime.now();
+		// Creo una variable int y con ChronoUnit obtendré los segundos que hay entre el comienzo y el final
 		int minutes = (int) ChronoUnit.SECONDS.between(start, stop);
 		
+		// Creo un proyecto y le asigno el valor que encontraré gracias a la búsqueda de un proyecto por su id
 		Project p = DbRepository.find(Project.class, Integer.parseInt(session.getAttribute("projectWork").toString()));
 		
-		session.removeAttribute("comienzo"); // Así quito el tiempo que estaba antes
+		// Así quito el tiempo que estaba antes
+		session.removeAttribute("comienzo"); 
+		// Creo un nuevo Empleado Proyecto con los valores de empleado, proyecto y tiempo que hemos obtenido anteriormente
 		EmployeeProject ep = new EmployeeProject(emp, p, minutes);
+		// Añado dicho Empleado Proyecto
 		DbRepository.add(ep);
 		start = null;
 	}
 %>
 
 <form>
-	<select name="projectSelect">
+	<select name="projectSelect" class="form-select">
 	<%for (CompanyProject cp : listProject) {
 		if(cp.getCompany().getId() == emp.getCompany().getId()){
 			%>
@@ -60,15 +77,19 @@
 	<% 
 	if (request.getParameter("go") == null) {
 		%>
-		<button type="submit" name="go" value="start">Empezar</button>
+		<button type="submit" name="go" value="start" class="btn btn-success">Empezar</button>
 		<%
 	} else {
 		%>
-		<button type="submit" name="finish" value="stop">Parar</button>
+		<button type="submit" name="finish" value="stop" class="btn btn-danger">Parar</button>
 		<%
 	}
 	%>
 </form>
-
+<a href="listCompany.jsp">
+		<button class="btn btn-primary">
+			Volver atrás
+		</button>
+	</a>
 </body>
 </html>
