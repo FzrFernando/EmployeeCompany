@@ -27,7 +27,7 @@
 	}
 	%>
 	<a href="timeJob.jsp">
-		<button>
+		<button class="btn btn-primary">
 			Asignar Trabajo
 		</button>
 	</a>
@@ -43,7 +43,7 @@
 				<th scope="col">Número Proyectos</th>																			
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="table-group-divider">
 			<tr>
 				<td><%=c.getName()%></td>
 				<td><%=c.getEmployee().size()%></td>

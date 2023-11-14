@@ -41,14 +41,14 @@
 				<%
 				if(emp.getRole().equals("ADMIN")){
 				%>
-				<th>Edit</th>
-				<th>Delete</th>	
+				<th scope="col">Edit</th>
+				<th scope="col">Delete</th>	
 				<% 
 				}
 				%>																			
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="table-group-divider">
 			<%
 			for (Employee e : result) {
 			%>
