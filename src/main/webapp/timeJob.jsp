@@ -27,7 +27,6 @@
 
 	// Creamos un Employee que va a tener el valor del usuario que se ha logueado
 	Employee emp = (Employee) session.getAttribute("login");
-<<<<<<< HEAD
 	HashMap<Integer, Integer> proyectos = (HashMap<Integer, Integer>) session.getAttribute("proyectos");
 
 	LocalTime start = (LocalTime) session.getAttribute("comienzo");
@@ -131,9 +130,7 @@
 	Solo funciona con un proyecto
 
 	Employee emp = (Employee) session.getAttribute("login");
-=======
 	// Creamos un ArrayList de CompanyProject
->>>>>>> 52285a6717f9fc59d629e9133a3672635be655ba
 	ArrayList <CompanyProject> listProject = new ArrayList<CompanyProject> ();
 	
 	// Le asignamos al ArrayList de CompanyProject todos los proyectos de una compañía
@@ -193,14 +190,11 @@
 	}
 	%>
 </form>
-<<<<<<< HEAD
 --%>
-=======
 <a href="listCompany.jsp">
 		<button class="btn btn-primary">
 			Volver atrás
 		</button>
 	</a>
->>>>>>> 52285a6717f9fc59d629e9133a3672635be655ba
 </body>
 </html>
