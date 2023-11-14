@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.codec.digest.DigestUtils"%>
 <%@page import="com.jacaranda.model.Employee"%>
 <%@page import="com.jacaranda.repository.DbRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -17,7 +18,7 @@
 			String password = null;
 			try {
 				id = Integer.parseInt(request.getParameter("id"));
-				password = request.getParameter("password");
+				password = DigestUtils.md5Hex(request.getParameter("password"));
 				
 				Employee e = DbRepository.find(Employee.class, id);
 				if (e.getPassword().equals(password)){
@@ -49,5 +50,9 @@
   <button type="submit" name="submit" class="btn btn-primary">Sign in</button>
 
 </form>
+
+<a href="register.jsp">
+	<button type="button" class="btn btn-primary">Register</button>
+</a>
 </body>
 </html>
