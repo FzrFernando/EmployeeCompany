@@ -12,6 +12,19 @@
 <meta charset="UTF-8">
 <title>Register</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script>
+function validatePassword() {
+	if (document.getElementById('password').value == document
+			.getElementById('confirmPassword').value) {
+		document.getElementById('error').hidden = true;
+		document.getElementById('send').disabled = false;
+	} else {
+
+		document.getElementById('error').hidden = false;
+		document.getElementById('send').disabled = true;
+	}
+}
+</script>
 </head>
 <body>
 <% 
@@ -50,10 +63,11 @@
 	<input name="email" type="email" class="form-control">
 	
 	<label class="form-label">Password</label>
-	<input name="password" type="password" class="form-control">
+	<input id="password" name="password" type="password" class="form-control">
 	
 	<label class="form-label">Confirm Password</label>
-	<input name="confirmPassword" type="password" class="form-control">
+	<input id="confirmPassword" name="confirmPassword" type="password" class="form-control" onchange="validatePassword();">
+	<div hidden="true" id="error" class="alert alert-danger" role="alert">La contraseña deben de coincidir</div>
 	
 	<label class="form-label">Sex</label>
 	<input value="male" type="radio" name="sex"><label>Hombre</label>

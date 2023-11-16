@@ -13,6 +13,8 @@
 <body>
 
 	<%
+	session.invalidate();
+	
 		if (request.getParameter("submit")!= null){
 			int id = 0;
 			String password = null;
