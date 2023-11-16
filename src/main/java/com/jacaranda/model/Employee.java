@@ -68,6 +68,22 @@ public class Employee {
 		this.role = role;
 		this.company = company;
 	}
+	
+	
+
+	public Employee(int id, String firstName, String lastName, String email, String gender, Date dateOfBirth,
+			String password, String role, Company company) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.gender = gender;
+		this.dateOfBirth = dateOfBirth;
+		this.password = password;
+		this.role = role;
+		this.company = company;
+	}
 
 	public Employee() {
 		super();

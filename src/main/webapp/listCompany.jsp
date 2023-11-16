@@ -26,6 +26,12 @@
 		
 	}
 	%>
+	<a href="editUser.jsp">
+		<button class="btn btn-primary">
+			Editar Información
+		</button>
+	</a>
+	
 	<a href="timeJob.jsp">
 		<button class="btn btn-primary">
 			Asignar Trabajo
